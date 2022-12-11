@@ -8,7 +8,7 @@ nmap k gk
 nmap H ^
 nmap L $
 
-set clipboard=unnamed
+set clipboard=unnamedplus
 set paste
 set ruler
 set number
