@@ -1,6 +1,8 @@
 colorscheme torte
 
 syntax enable
+inoremap jk <Esc>
+vnoremap jk <Esc>
 
 nmap j gj
 nmap k gk
@@ -9,7 +11,6 @@ nmap H ^
 nmap L $
 
 set clipboard=unnamedplus
-set paste
 set ruler
 set number
 set cursorline
