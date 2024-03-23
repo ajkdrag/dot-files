@@ -25,18 +25,7 @@ autocmd FileType yaml
 	\ shiftwidth=2 expandtab autoindent
 
 set clipboard=unnamedplus
-let g:clipboard = {
-                        \   'name': 'win32yank-wsl',
-                        \   'copy': {
-                        \      '+': 'win32yank.exe -i --crlf',
-                        \      '*': 'win32yank.exe -i --crlf',
-                        \    },
-                        \   'paste': {
-                        \      '+': 'win32yank.exe -o --lf',
-                        \      '*': 'win32yank.exe -o --lf',
-                        \   },
-                        \   'cache_enabled': 0,
-                        \ }
+vmap <silent> <C-c> :w !clip.exe<CR><CR>
 
 set foldmethod=indent
 set foldlevel=99
@@ -46,23 +35,26 @@ set cursorline
 set showmatch
 set hlsearch
 set incsearch
-set statusline+=%3{codeium#GetStatusString()}
 
 
 call plug#begin()
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
-Plug 'nvie/vim-flake8'
 Plug 'dense-analysis/ale'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'junegunn/vim-easy-align'
 call plug#end()
 
 colorscheme dracula
 
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
 let g:codeium_disable_bindings = 1
+set statusline+=%3{codeium#GetStatusString()}
 imap <script><silent><nowait><expr> <C-g> codeium#Accept()
-imap <C-i>   <Cmd>call codeium#CycleCompletions(1)<CR>
-imap <C-u>   <Cmd>call codeium#CycleCompletions(-1)<CR>
-imap <C-x>   <Cmd>call codeium#Clear()<CR>
+imap <c-u>   <Cmd>call codeium#CycleCompletions(-1)<CR>
+imap <c-i>   <Cmd>call codeium#CycleCompletions(1)<CR>
+imap <c-x>   <Cmd>call codeium#Clear()<CR>
 
 let g:ale_linters = {
 	\ 'python': ['ruff'],
