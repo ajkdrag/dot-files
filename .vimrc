@@ -25,7 +25,18 @@ autocmd FileType yaml
 	\ shiftwidth=2 expandtab autoindent
 
 set clipboard=unnamedplus
-vmap <silent> <C-c> :w !clip.exe<CR><CR>
+let g:clipboard = {
+                        \   'name': 'win32yank-wsl',
+                        \   'copy': {
+                        \      '+': 'win32yank.exe -i --crlf',
+                        \      '*': 'win32yank.exe -i --crlf',
+                        \    },
+                        \   'paste': {
+                        \      '+': 'win32yank.exe -o --lf',
+                        \      '*': 'win32yank.exe -o --lf',
+                        \   },
+                        \   'cache_enabled': 0,
+                        \ }
 
 set foldmethod=indent
 set foldlevel=99
@@ -49,15 +60,15 @@ colorscheme dracula
 
 let g:codeium_disable_bindings = 1
 imap <script><silent><nowait><expr> <C-g> codeium#Accept()
-imap <C-l>   <Cmd>call codeium#CycleCompletions(1)<CR>
-imap <C-h>   <Cmd>call codeium#CycleCompletions(-1)<CR>
+imap <C-i>   <Cmd>call codeium#CycleCompletions(1)<CR>
+imap <C-u>   <Cmd>call codeium#CycleCompletions(-1)<CR>
 imap <C-x>   <Cmd>call codeium#Clear()<CR>
 
 let g:ale_linters = {
-	\ 'python': ['flake8'],
+	\ 'python': ['ruff'],
 	\}
 let g:ale_fixers = {
 	\ '*': [],
-	\ 'python': ['black'],
+	\ 'python': ['ruff', 'ruff_format'],
 	\}
 let g:ale_fix_on_save = 1
